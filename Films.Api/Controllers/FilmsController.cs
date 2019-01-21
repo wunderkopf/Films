@@ -6,7 +6,7 @@ using Films.Services.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Films.Api.Controllers
+namespace Films.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

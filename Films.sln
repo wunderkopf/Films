@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.Api", "Films.Api\Films.Api.csproj", "{01CD8CE7-2E3C-4DFB-900E-A552507CAD70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.API", "Films.Api\Films.Api.csproj", "{01CD8CE7-2E3C-4DFB-900E-A552507CAD70}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.Database", "Films.Database\Films.Database.csproj", "{F36CEF96-A6BE-42CD-8365-45D9B9F23C7B}"
 EndProject

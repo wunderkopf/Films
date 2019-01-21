@@ -18,7 +18,7 @@ namespace Films.Services
     public class FilmService : IFilmService
     {
         private readonly IRepository<Film> filmRepository;
-        private MapperConfiguration mapperConfig;
+        private readonly MapperConfiguration mapperConfig;
 
         public FilmService(IRepository<Film> filmRepository)
         {

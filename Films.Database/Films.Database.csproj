@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
+    <PackageReference Include="Npgsql" Version="4.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20190117151127_Init.cs" />
+    <Compile Remove="Migrations\20190118132751_Init.cs" />
+    <Compile Remove="Migrations\20190118132751_Init.Designer.cs" />
+  </ItemGroup>
+</Project>

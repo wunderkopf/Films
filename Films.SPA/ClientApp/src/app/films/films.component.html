@@ -2,4 +2,9 @@
   <p>
     films works!
   </p>
+  <ul>
+       <li *ngFor="let f of films">
+         {{ f | json }}
+       </li>
+     </ul>
 </div>

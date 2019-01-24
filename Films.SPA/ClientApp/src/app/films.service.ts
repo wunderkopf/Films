@@ -9,31 +9,31 @@ import { Film } from './models/film';
 })
 export class FilmsService {
 
-    private filmsUrl = 'https://localhost:5000/api/films';
+  private filmsUrl = 'https://localhost:5000/api/films';
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    private log(message: string) {
-      console.log('FilmsService: ' + message);
-    }
+  private log(message: string) {
+    console.log('FilmsService: ' + message);
+  }
 
-    private error(message: string) {
-      console.error('FilmsService: ' + message);
-    }
+  private error(message: string) {
+    console.error('FilmsService: ' + message);
+  }
 
-    private handleError<T>(operation = 'operation', result?: T) {
-      return (error: any): Observable<T> => {
-        this.error(error);
-        this.log(`${operation} failed: ${error.message}`);
-        return of(result as T);
-      };
-    }
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      this.error(error);
+      this.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
+  }
 
-    getFilms(): Observable<Film[]> {
-      return this.http.get<Film[]>(this.filmsUrl)
-        .pipe(
-          tap(accounts => this.log(`fetched films`)),
-          catchError(this.handleError('getFilms', []))
-        );
-    }
+  getFilms(): Observable<Film[]> {
+    return this.http.get<Film[]>(this.filmsUrl)
+      .pipe(
+        tap(accounts => this.log(`fetched films`)),
+        catchError(this.handleError('getFilms', []))
+      );
+  }
 }

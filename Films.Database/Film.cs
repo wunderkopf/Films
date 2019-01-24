@@ -14,6 +14,6 @@ namespace Films.Database
 
         //-----------------------------
         //Relationships
-        public ICollection<FilmGenre> FilmGenre { get; set; }
+        public virtual ICollection<FilmGenre> FilmGenre { get; set; }
     }
 }

@@ -32,7 +32,9 @@ namespace Films.API
 
             services.AddDbContext<ApplicationContext>();
             services.AddScoped<IRepository<Film>, EFFilmRepository>();
+            services.AddScoped<IRepository<Genre>, EFGenreRepository>();
             services.AddTransient<IFilmService, FilmService>();
+            services.AddTransient<IGenreService, GenreService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

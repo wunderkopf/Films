@@ -1,5 +1,7 @@
 <div class="main-container">
-  <p>
-    genres works!
-  </p>
+  <ul>
+    <li *ngFor="let g of genres">
+      {{ g | json }}
+    </li>
+  </ul>
 </div>

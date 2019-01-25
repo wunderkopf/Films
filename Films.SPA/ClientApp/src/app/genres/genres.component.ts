@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GenresService } from '../genres.service';
+import { GenresService } from '../services/genres.service';
 import { Genre } from '../models/genre';
 
 @Component({

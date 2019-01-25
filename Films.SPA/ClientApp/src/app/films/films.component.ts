@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { FilmsService } from '../films.service';
+import { FilmsService } from '../services/films.service';
 import { Film } from '../models/film';
 
 @Component({

@@ -32,8 +32,16 @@ export class FilmsService {
   getFilms(): Observable<Film[]> {
     return this.http.get<Film[]>(this.filmsUrl)
       .pipe(
-        tap(accounts => this.log(`fetched films`)),
+        tap(films => this.log(`fetched films`)),
         catchError(this.handleError('getFilms', []))
       );
+  }
+
+  createFilms(films: Film[]): Observable<Film[]> {
+    const options = { headers: { 'Content-Type': 'application/json' } };
+    return this.http.post<Film[]>(this.filmsUrl, JSON.stringify(films), options).pipe(
+      tap(films => this.log(`created films`)),
+      catchError(this.handleError('createFilms', []))
+    );
   }
 }

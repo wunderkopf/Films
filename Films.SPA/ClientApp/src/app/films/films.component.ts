@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
+import { Router } from "@angular/router";
 import { FilmsService } from '../services/films.service';
 import { Film } from '../models/film';
+import { GenresService } from '../services/genres.service';
 
 @Component({
     selector: 'app-films',
@@ -11,12 +13,13 @@ import { Film } from '../models/film';
 
 export class FilmsComponent implements OnInit {
 
-    films: Film[];
+    private films: Film[];
 
     displayedColumns: string[] = ['id', 'title', 'genres'];
     dataSource: MatTableDataSource<Film>;
 
-    constructor(private filmsService: FilmsService) { }
+    constructor(private router: Router, private filmsService: FilmsService,
+        private genresService: GenresService) { }
 
     ngOnInit() {
         this.getFilms();
@@ -25,14 +28,21 @@ export class FilmsComponent implements OnInit {
     private getFilms(): void {
         this.filmsService.getFilms().subscribe(films => {
             this.films = films;
-            this.films.forEach((film, index) => {
-                film.genresTitles = [];
-                film.genres.forEach((id, index) => {
-                    film.genresTitles[index] = [id, 'action'];
-                });
-            });
 
-            this.dataSource = new MatTableDataSource<Film>(this.films);
+            this.genresService.getGenres().subscribe(genres => {
+                this.films.forEach((film, index) => {
+                    film.genresTitles = [];
+                    film.genres.forEach((id, index) => {
+                        film.genresTitles[index] = [id, genres.find(x => x.id == id).title];
+                    });
+                });
+
+                this.dataSource = new MatTableDataSource<Film>(this.films);
+            });
         });
+    }
+
+    addFilm(): void {
+        this.router.navigate(['add-film']);
     }
 }

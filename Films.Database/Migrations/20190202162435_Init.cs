@@ -13,7 +13,7 @@ namespace Films.Database.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Title = table.Column<string>(nullable: true)
+                    Title = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,7 +26,7 @@ namespace Films.Database.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Title = table.Column<string>(nullable: true)
+                    Title = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -29,7 +29,9 @@ namespace Films.API
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerDocument();
 
+            // DI
             services.AddDbContext<ApplicationContext>();
             services.AddScoped<IRepository<Film>, EFFilmRepository>();
             services.AddScoped<IRepository<Genre>, EFGenreRepository>();
@@ -40,9 +42,7 @@ namespace Films.API
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
             else
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -52,6 +52,12 @@ namespace Films.API
             app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
             app.UseMvc();
+
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUi3();
+            }
         }
     }
 }

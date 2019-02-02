@@ -25,6 +25,7 @@ namespace Films.Database.Migrations
                         .HasColumnName("Id");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnName("Title");
 
                     b.HasKey("Id");
@@ -54,6 +55,7 @@ namespace Films.Database.Migrations
                         .HasColumnName("Id");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnName("Title");
 
                     b.HasKey("Id");

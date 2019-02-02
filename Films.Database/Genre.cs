@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Films.Database
@@ -10,6 +11,7 @@ namespace Films.Database
         public int Id { get; set; }
 
         [Column("Title", Order = 1)]
+        [Required]
         public string Title { get; set; }
 
         //-----------------------------

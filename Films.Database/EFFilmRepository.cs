@@ -20,10 +20,10 @@ namespace Films.Database
                 return null;
 
             var films = context.Films
-            .Where(f => f.Id == id)
-            .Include(f => f.FilmGenre);
-            /*.ThenInclude(fg => fg.Genre)*///.ToList();
-            //.Where(f => f.Id == id).ToList();
+            //.Where(f => f.Id == id)
+            //.Include(f => f.FilmGenre)
+            //.ThenInclude(fg => fg.Genre)
+            .Where(f => f.Id == id);
 
             if (!films.Any())
                 return null;

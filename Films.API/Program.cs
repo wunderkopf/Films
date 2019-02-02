@@ -28,6 +28,7 @@ namespace Films.API
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("https://0.0.0.0:5000")
                 .UseStartup<Startup>();
     }
 }

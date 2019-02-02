@@ -5,6 +5,7 @@
        </li>
      </ul>-->
   <div class="mat-elevation-z8">
+    <button mat-button (click)="addFilm()">Add</button>
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> ID </th>

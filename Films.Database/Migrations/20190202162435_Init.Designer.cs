@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Films.Database.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190118135037_Init")]
+    [Migration("20190202162435_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,7 @@ namespace Films.Database.Migrations
                         .HasColumnName("Id");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnName("Title");
 
                     b.HasKey("Id");
@@ -56,6 +57,7 @@ namespace Films.Database.Migrations
                         .HasColumnName("Id");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnName("Title");
 
                     b.HasKey("Id");

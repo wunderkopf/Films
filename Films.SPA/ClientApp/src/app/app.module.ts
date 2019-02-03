@@ -1,18 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, 
-  MatTableModule, MatCardModule, MatDialogModule, MatInputModule, MatCheckboxModule } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,
+  MatTableModule, MatCardModule, MatDialogModule, MatInputModule, MatCheckboxModule
+} from '@angular/material';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { FilmsComponent } from './films/films.component';
 import { GenresComponent } from './genres/genres.component';
 import { AddFilmComponent } from './add-film/add-film.component';
+import { CachingInterceptor } from './services/caching-interceptor';
+import { CacheMapService } from './services/cache-map.service';
+
+export const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }
+];
 
 @NgModule({
   declarations: [
@@ -40,7 +48,11 @@ import { AddFilmComponent } from './add-film/add-film.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    CacheMapService,
+    { provide: Cache, useClass: CacheMapService },
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

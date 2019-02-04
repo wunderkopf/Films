@@ -29,7 +29,7 @@ export class FilmsService {
     };
   }
 
-  getFilms(): Observable<Film[]> {
+  public getFilms(): Observable<Film[]> {
     return this.http.get<Film[]>(this.filmsUrl)
       .pipe(
         tap(films => this.log(`fetched films`)),
@@ -37,11 +37,22 @@ export class FilmsService {
       );
   }
 
-  createFilms(films: Film[]): Observable<Film[]> {
+  public createFilms(films: Film[]): Observable<Film[]> {
     const options = { headers: { 'Content-Type': 'application/json' } };
-    return this.http.post<Film[]>(this.filmsUrl, JSON.stringify(films), options).pipe(
-      tap(films => this.log(`created films`)),
-      catchError(this.handleError('createFilms', []))
-    );
+    return this.http.post<Film[]>(this.filmsUrl, JSON.stringify(films), options)
+      .pipe(
+        tap(films => this.log(`created films`)),
+        catchError(this.handleError('createFilms', []))
+      );
+  }
+
+  public deleteFilm(id: number): Observable<any> {
+    const url = `${this.filmsUrl}/${id}`;
+
+    return this.http.delete(url)
+      .pipe(
+        tap(films => this.log(`deleted film`)),
+        catchError(this.handleError('deleteFilm', []))
+      );
   }
 }

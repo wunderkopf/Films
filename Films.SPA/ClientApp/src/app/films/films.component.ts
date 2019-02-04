@@ -15,7 +15,7 @@ export class FilmsComponent implements OnInit {
 
     private films: Film[];
 
-    displayedColumns: string[] = ['id', 'title', 'genres'];
+    displayedColumns: string[] = ['id', 'title', 'genres', 'actions'];
     dataSource: MatTableDataSource<Film>;
 
     constructor(private router: Router, private filmsService: FilmsService,
@@ -42,7 +42,16 @@ export class FilmsComponent implements OnInit {
         });
     }
 
-    addFilm(): void {
+    public addFilm(): void {
         this.router.navigate(['add-film']);
+    }
+
+    public deleteFilm(filmID: number): void {
+        this.filmsService.deleteFilm(filmID).subscribe(res => {
+            var data = this.dataSource.data;
+            const itemIndex = data.findIndex(obj => obj.id === filmID);
+            data.splice(itemIndex, 1);
+            this.dataSource = new MatTableDataSource<Film>(data);
+        });
     }
 }

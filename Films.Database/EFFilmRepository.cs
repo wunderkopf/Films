@@ -21,9 +21,9 @@ namespace Films.Database
 
             var films = context.Films
             //.Where(f => f.Id == id)
-            //.Include(f => f.FilmGenre)
+            .Include(f => f.FilmGenre)
             //.ThenInclude(fg => fg.Genre)
-            .Where(f => f.Id == id);
+            .Where(f => f.Id == id).ToList();
 
             if (!films.Any())
                 return null;
@@ -56,7 +56,13 @@ namespace Films.Database
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var film = FindById(id);
+            if (film != null)
+            {
+                context.FilmsGenres.RemoveRange(film.FilmGenre);
+                context.Films.Remove(film);
+                context.SaveChanges();
+            }
         }
     }
 }

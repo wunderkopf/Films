@@ -37,6 +37,15 @@ export class FilmsService {
       );
   }
 
+  public getFilm(id: number): Observable<Film> {
+    const url = `${this.filmsUrl}/${id}`;
+    return this.http.get<Film>(url)
+      .pipe(
+        tap(film => this.log(`fetched films`)),
+        catchError(this.handleError('getFilms', null))
+      );
+  }
+
   public createFilms(films: Film[]): Observable<Film[]> {
     const options = { headers: { 'Content-Type': 'application/json' } };
     return this.http.post<Film[]>(this.filmsUrl, JSON.stringify(films), options)
@@ -53,6 +62,16 @@ export class FilmsService {
       .pipe(
         tap(films => this.log(`deleted film`)),
         catchError(this.handleError('deleteFilm', []))
+      );
+  }
+
+  public updateFilm(id: number, film: Film): Observable<Film> {
+    const url = `${this.filmsUrl}/${id}`;
+    const options = { headers: { 'Content-Type': 'application/json' } };
+    return this.http.put<Film>(url, JSON.stringify(film), options)
+      .pipe(
+        tap(film => this.log(`updated film`)),
+        catchError(this.handleError('updateFilm', null))
       );
   }
 }

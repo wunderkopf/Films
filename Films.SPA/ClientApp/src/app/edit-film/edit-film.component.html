@@ -1,0 +1,40 @@
+<div class="main-container">
+  <mat-card class="add-film-card">
+    <mat-card-header>
+      <mat-card-title>Edit film</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form *ngIf="editForm" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
+        <table cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Film title" formControlName="title" name="title" required>
+                <mat-error *ngIf="editForm.controls.title.errors?.required">Title is required</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <!-- <mat-selection-list formControlName="genres">
+                <mat-list-option *ngFor="let g of genres | async; let i = index" [value]="g.id"
+                selected="true">
+                  {{g.title}}
+                  {{editForm.value['genres'][i].value}} -->
+              <!-- </mat-list-option>
+              </mat-selection-list> -->
+              <label *ngFor="let g of genres | async; let i = index">
+                <mat-checkbox [checked]="editForm.value['genres'][i].value" (change)="onChange($event)" [name]="i">
+                  {{g.title}}
+                </mat-checkbox>
+                <br/>
+              </label>
+            </td>
+          </tr>
+        </table>
+        <button mat-raised-button type="button" (click)="onCancel($event)">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" class="button">Save</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

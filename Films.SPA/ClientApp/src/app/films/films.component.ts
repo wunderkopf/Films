@@ -54,4 +54,8 @@ export class FilmsComponent implements OnInit {
             this.dataSource = new MatTableDataSource<Film>(data);
         });
     }
+
+    public editFilm(filmID: number): void {
+        this.router.navigate(['edit-film', filmID]);
+    }
 }

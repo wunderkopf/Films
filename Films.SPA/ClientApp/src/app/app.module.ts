@@ -17,6 +17,7 @@ import { GenresComponent } from './genres/genres.component';
 import { AddFilmComponent } from './add-film/add-film.component';
 import { CachingInterceptor } from './services/caching-interceptor';
 import { CacheMapService } from './services/cache-map.service';
+import { EditFilmComponent } from './edit-film/edit-film.component';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }
@@ -27,7 +28,8 @@ export const httpInterceptorProviders = [
     AppComponent,
     FilmsComponent,
     GenresComponent,
-    AddFilmComponent
+    AddFilmComponent,
+    EditFilmComponent
   ],
   imports: [
     BrowserModule,

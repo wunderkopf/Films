@@ -49,9 +49,17 @@ namespace Films.Database
             context.SaveChanges();
         }
 
-        public void Update(Film film)
+        public void Update(Film newFilm)
         {
-            throw new NotImplementedException();
+            var film = FindById(newFilm.Id);
+            if (film != null)
+            {
+                context.FilmsGenres.RemoveRange(film.FilmGenre);
+                film.Title = newFilm.Title;
+                film.FilmGenre = newFilm.FilmGenre;
+                context.Films.Update(film);
+                context.SaveChanges();
+            }
         }
 
         public void Delete(int id)

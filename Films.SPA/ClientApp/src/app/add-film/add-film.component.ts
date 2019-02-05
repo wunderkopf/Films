@@ -46,6 +46,5 @@ export class AddFilmComponent implements OnInit {
       .subscribe(data => {
         this.router.navigate(['films']);
       });
-    //this.router.navigate(['films']);
   }
 }

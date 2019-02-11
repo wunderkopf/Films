@@ -3,19 +3,11 @@ using AutoMapper;
 using System.Linq;
 using Films.Database;
 using Films.Services.Models;
+using System.Threading.Tasks;
 
 namespace Films.Services
 {
-    public interface IGenreService
-    {
-        IEnumerable<GenreModel> GetGenres();
-        GenreModel GetGenre(int id);
-        void InsertGenres(ICollection<GenreModel> genreModels);
-        void UpdateGenre(GenreModel genreModel);
-        void DeleteGenre(int id);
-    }
-
-    public class GenreService : IGenreService
+    public class GenreService : IService<GenreModel>
     {
         private readonly IRepository<Genre> genreRepository;
         private readonly MapperConfiguration mapperConfig;
@@ -31,7 +23,7 @@ namespace Films.Services
             });
         }
 
-        public GenreModel GetGenre(int id)
+        public GenreModel Get(int id)
         {
             var genre = genreRepository.FindById(id);
 
@@ -41,7 +33,7 @@ namespace Films.Services
             return genreModel;
         }
 
-        public IEnumerable<GenreModel> GetGenres()
+        public IEnumerable<GenreModel> Get()
         {
             var genres = genreRepository.Get();
 
@@ -51,21 +43,29 @@ namespace Films.Services
             return genreModels;
         }
 
-        public void InsertGenres(ICollection<GenreModel> genreModels)
+        public async Task<IEnumerable<GenreModel>> GetAsync()
+        {
+            var genres = await genreRepository.GetAsync();
+            var mapper = this.mapperConfig.CreateMapper();
+            var genreModels = mapper.Map<IEnumerable<GenreModel>>(genres);
+            return genreModels;
+        }
+
+        public void Insert(ICollection<GenreModel> genreModels)
         {
             var mapper = this.mapperConfig.CreateMapper();
             var genres = mapper.Map<ICollection<Genre>>(genreModels);
             genreRepository.Insert(genres);
         }
 
-        public void UpdateGenre(GenreModel genreModel)
+        public void Update(GenreModel genreModel)
         {
             var mapper = this.mapperConfig.CreateMapper();
             var genre = mapper.Map<Genre>(genreModel);
             genreRepository.Update(genre);
         }
 
-        public void DeleteGenre(int id)
+        public void Delete(int id)
         {
             genreRepository.Delete(id);
         }

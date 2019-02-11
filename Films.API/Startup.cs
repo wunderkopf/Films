@@ -1,5 +1,6 @@
 ﻿using Films.Database;
 using Films.Services;
+using Films.Services.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -35,8 +36,8 @@ namespace Films.API
             services.AddDbContext<ApplicationContext>();
             services.AddScoped<IRepository<Film>, EFFilmRepository>();
             services.AddScoped<IRepository<Genre>, EFGenreRepository>();
-            services.AddTransient<IFilmService, FilmService>();
-            services.AddTransient<IGenreService, GenreService>();
+            services.AddTransient<IService<FilmModel>, FilmService>();
+            services.AddTransient<IService<GenreModel>, GenreService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

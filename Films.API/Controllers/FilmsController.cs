@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Films.Services;
 using Films.Services.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -12,18 +13,18 @@ namespace Films.API.Controllers
     [ApiController]
     public class FilmsController : ControllerBase
     {
-        private readonly IFilmService filmService;
+        private readonly IService<FilmModel> filmService;
 
-        public FilmsController(IFilmService filmService)
+        public FilmsController(IService<FilmModel> filmService)
         {
             this.filmService = filmService;
         }
 
         // GET api/films
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var films = filmService.GetFilms();
+            var films = await filmService.GetAsync();
 
             if (films == null)
                 return NotFound();
@@ -41,7 +42,7 @@ namespace Films.API.Controllers
             if (id <= 0)
                 return NotFound();
 
-            var film = filmService.GetFilm(id);
+            var film = filmService.Get(id);
             if (film == null)
                 return NotFound();
 
@@ -55,7 +56,7 @@ namespace Films.API.Controllers
             if (!films.Any())
                 return NotFound();
 
-            filmService.InsertFilms(films);
+            filmService.Insert(films);
 
             return Created(new Uri("api/films", UriKind.Relative), films.Count());
         }
@@ -72,7 +73,7 @@ namespace Films.API.Controllers
 
             film.Id = id;
 
-            filmService.UpdateFilm(film);
+            filmService.Update(film);
 
             return Ok();
         }
@@ -84,7 +85,7 @@ namespace Films.API.Controllers
             if (id <= 0)
                 return NotFound();
 
-            filmService.DeleteFilm(id);
+            filmService.Delete(id);
 
             return Ok();
         }

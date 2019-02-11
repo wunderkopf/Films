@@ -3,19 +3,11 @@ using AutoMapper;
 using System.Linq;
 using Films.Database;
 using Films.Services.Models;
+using System.Threading.Tasks;
 
 namespace Films.Services
 {
-    public interface IFilmService
-    {
-        IEnumerable<FilmModel> GetFilms();
-        FilmModel GetFilm(int id);
-        void InsertFilms(ICollection<FilmModel> filmModels);
-        void UpdateFilm(FilmModel filmModel);
-        void DeleteFilm(int id);
-    }
-
-    public class FilmService : IFilmService
+    public class FilmService : IService<FilmModel>
     {
         private readonly IRepository<Film> filmRepository;
         private readonly MapperConfiguration mapperConfig;
@@ -39,7 +31,7 @@ namespace Films.Services
             });
         }
 
-        public FilmModel GetFilm(int id)
+        public FilmModel Get(int id)
         {
             var film = filmRepository.FindById(id);
 
@@ -49,7 +41,7 @@ namespace Films.Services
             return filmModel;
         }
 
-        public IEnumerable<FilmModel> GetFilms()
+        public IEnumerable<FilmModel> Get()
         {
             var films = filmRepository.Get();
 
@@ -59,21 +51,29 @@ namespace Films.Services
             return filmModels;
         }
 
-        public void InsertFilms(ICollection<FilmModel> filmModels)
+        public async Task<IEnumerable<FilmModel>> GetAsync()
+        {
+            var films = await filmRepository.GetAsync();
+            var mapper = this.mapperConfig.CreateMapper();
+            var filmModels = mapper.Map<IEnumerable<FilmModel>>(films);
+            return filmModels;
+        }
+
+        public void Insert(ICollection<FilmModel> filmModels)
         {
             var mapper = this.mapperConfig.CreateMapper();
             var films = mapper.Map<ICollection<Film>>(filmModels);
             filmRepository.Insert(films);
         }
 
-        public void UpdateFilm(FilmModel filmModel)
+        public void Update(FilmModel filmModel)
         {
             var mapper = this.mapperConfig.CreateMapper();
             var film = mapper.Map<Film>(filmModel);
             filmRepository.Update(film);
         }
 
-        public void DeleteFilm(int id)
+        public void Delete(int id)
         {
             filmRepository.Delete(id);
         }

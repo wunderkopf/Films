@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Films.Services;
 using Films.Services.Models;
@@ -12,9 +10,9 @@ namespace Films.API.Controllers
     [ApiController]
     public class GenresController : ControllerBase
     {
-        private readonly IGenreService genreService;
+        private readonly IService<GenreModel> genreService;
 
-        public GenresController(IGenreService genreService)
+        public GenresController(IService<GenreModel> genreService)
         {
             this.genreService = genreService;
         }
@@ -23,7 +21,7 @@ namespace Films.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var genres = genreService.GetGenres();
+            var genres = genreService.Get();
 
             if (genres == null)
                 return NotFound();

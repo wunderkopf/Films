@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Films.Database
@@ -19,16 +20,11 @@ namespace Films.Database
             if (id <= 0)
                 return null;
 
-            var films = context.Films
-            //.Where(f => f.Id == id)
+            var film = context.Films
             .Include(f => f.FilmGenre)
-            //.ThenInclude(fg => fg.Genre)
-            .Where(f => f.Id == id).ToList();
+            .FirstOrDefault(f => f.Id == id);
 
-            if (!films.Any())
-                return null;
-
-            return films.First();
+            return film;
         }
 
         public IEnumerable<Film> Get()
@@ -38,6 +34,12 @@ namespace Films.Database
             .ThenInclude(fg => fg.Genre);
 
             return films.ToList();
+        }
+
+        public async Task<IEnumerable<Film>> GetAsync()
+        {
+            var films = context.Films.Include(fg => fg.FilmGenre).ThenInclude(fg => fg.Genre);
+            return await films.ToListAsync();
         }
 
         public void Insert(ICollection<Film> films)

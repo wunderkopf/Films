@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Films.Services.Models
 {
-    public class GenreModel
+    public class GenreModel : IBaseModel
     {
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }

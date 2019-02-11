@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Films.Database
@@ -31,6 +32,12 @@ namespace Films.Database
         {
             var genres = context.Genres;
             return genres.ToList();
+        }
+
+        public async Task<IEnumerable<Genre>> GetAsync()
+        {
+            var genres = context.Genres;
+            return await genres.ToListAsync();
         }
 
         public void Insert(ICollection<Genre> genres)

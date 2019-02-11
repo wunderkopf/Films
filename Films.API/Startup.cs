@@ -1,4 +1,5 @@
-﻿using Films.Database;
+﻿using AutoMapper;
+using Films.Database;
 using Films.Services;
 using Films.Services.Models;
 using Microsoft.AspNetCore.Builder;
@@ -32,8 +33,10 @@ namespace Films.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument();
 
-            // DI
             services.AddDbContext<ApplicationContext>();
+            services.AddAutoMapper();
+
+            // DI
             services.AddScoped<IRepository<Film>, EFFilmRepository>();
             services.AddScoped<IRepository<Genre>, EFGenreRepository>();
             services.AddTransient<IService<FilmModel>, FilmService>();
